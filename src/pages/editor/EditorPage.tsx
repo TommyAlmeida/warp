@@ -41,8 +41,6 @@ const EditorPage = () => {
 
   useEffect(() => {
     addClient({ socketId: "Tomas", username: "Tomas" } as EditorClient);
-    addClient({ socketId: "Paloma", username: "Paloma" } as EditorClient);
-    addClient({ socketId: "Sara", username: "Sara" } as EditorClient);
     console.log("clients", clients);
   }, []);
 
