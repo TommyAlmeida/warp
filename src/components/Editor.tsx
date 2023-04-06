@@ -21,8 +21,15 @@ const Editor = ({ roomId, onCodeChange }: EditorProps) => {
         },
         styles: [{ tag: t.comment, color: "#6272a4" }],
       })}
-      value="console.log('.l.');"
-      height="100vh"
+      value="
+      console.log('FUNCIONA CRLLLLLLLLLLLLLLLLLLLLLLLLL');
+      // ESTA BUGADO VOU DORMIR FDS
+      "
+      style={{
+        minHeight: "calc(100vh - 20px)",
+        fontSize: "20px",
+        lineHeight: "1.6",
+      }}
       extensions={[langs.javascript()]}
       onChange={(value) => onCodeChange(value)}
     />

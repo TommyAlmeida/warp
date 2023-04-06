@@ -11,14 +11,9 @@ import Editor from "../../components/Editor";
 //@ts-ignore
 import LogoSvg from "../../assets/logo.svg";
 import "./EditorPage.css";
-import { initSocket } from "../../utils/sockets";
-import SocketActions from "../../utils/actions";
 import { Socket } from "socket.io-client";
-
-type EditorClient = {
-  socketId: string;
-  username: string;
-};
+import { EditorClient } from "../../utils/types";
+import ClientList from "../../components/ClientList";
 
 const EditorPage = () => {
   const socketRef = useRef<Socket | null>();
@@ -30,42 +25,29 @@ const EditorPage = () => {
 
   const [clients, setClients] = useState(Array<EditorClient>());
 
-  useEffect(() => {
-    const init = async () => {
-      socketRef.current = await initSocket();
-      socketRef.current.on("connect_error", (err) => handleErrors(err));
-      socketRef.current.on("connect_failed", (err) => handleErrors(err));
+  function addClient(newClient: EditorClient) {
+    setClients((prevClients) => {
+      const clientExists = prevClients.some(
+        (client) => client.username === newClient.username
+      );
 
-      function handleErrors(e: Error) {
-        console.log("socket error", e);
-        //navigate("/");
+      if (!clientExists) {
+        return [...prevClients, newClient];
       }
 
-      socketRef.current.emit(SocketActions.JOIN, {
-        roomId,
-        username: location.state?.username,
-      });
-    };
+      return prevClients;
+    });
+  }
 
-    init();
-
-    return () => {
-      if (!socketRef.current) return;
-
-      socketRef.current.disconnect();
-      socketRef.current.off(SocketActions.JOINED);
-      socketRef.current.off(SocketActions.DISCONNECTED);
-    };
+  useEffect(() => {
+    addClient({ socketId: "Tomas", username: "Tomas" } as EditorClient);
+    addClient({ socketId: "Paloma", username: "Paloma" } as EditorClient);
+    addClient({ socketId: "Sara", username: "Sara" } as EditorClient);
+    console.log("clients", clients);
   }, []);
 
-  async function copyRoomId() {
-    if (!roomId) return;
-
-    try {
-      await navigator.clipboard.writeText(roomId);
-    } catch (err) {
-      console.error(err);
-    }
+  async function debug() {
+    console.log("clients", clients);
   }
 
   function leaveRoom() {
@@ -84,11 +66,7 @@ const EditorPage = () => {
             <img className="logoImage" src={LogoSvg} alt="logo" />
           </div>
 
-          <div className="clientsList">
-            {clients.map((client) => (
-              <Client key={client.socketId} username={client.username} />
-            ))}
-          </div>
+          <ClientList clients={clients} />
         </div>
         <button
           className="btn"
@@ -98,9 +76,9 @@ const EditorPage = () => {
             color: "#fff",
             fontWeight: "bold",
           }}
-          onClick={copyRoomId}
+          onClick={debug}
         >
-          Copy Room Id
+          JA ME ESTOU A PASSAR ESTA MERDA NAO FUNCIONA
         </button>
         <button
           className="btn"
