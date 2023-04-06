@@ -1,21 +1,41 @@
-import React, { useState } from 'react';
-import LogoSvg from "../logo.svg";
-import './HomePage.css'
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { v4 as uuidV4 } from "uuid";
+import "./HomePage.css";
+
+//@ts-ignore
+import LogoSvg from "../assets/logo.svg";
 
 const HomePage = () => {
+  const navigate = useNavigate();
 
   const [roomId, setRoomId] = useState("");
   const [email, setEmail] = useState("");
 
-  const joinRoom = () => {
-    console.log("Join room")
-  }
+  const createNewRoom = (e: any) => {
+    e.preventDefault();
+    const id = uuidV4();
 
-  const handleInputEnter = (e) => {
-    if (e.code === "Enter") {
-      console.log("Enter room")
+    setRoomId(id);
+  };
+
+  const joinRoom = () => {
+    if (!roomId || !email) {
+      return;
     }
-  }
+
+    navigate(`/editor/${roomId}`, {
+      state: {
+        email,
+      },
+    });
+  };
+
+  const handleInputEnter = (e: any) => {
+    if (e.code === "Enter") {
+      joinRoom();
+    }
+  };
 
   return (
     <>
@@ -44,12 +64,17 @@ const HomePage = () => {
             <button className="btn success" onClick={joinRoom}>
               Join
             </button>
+            <span className="createInfo">
+              If you don't have an invite then create &nbsp;
+              <a onClick={createNewRoom} href="" className="newRoomBtn">
+                new room
+              </a>
+            </span>
           </div>
         </div>
-
       </div>
     </>
   );
-}
+};
 
 export default HomePage;

@@ -18,6 +18,11 @@
   justify-content: center;
 }
 
+.createInfo {
+  margin: 0 auto;
+  margin-top: 20px;
+}
+
 .homePageLogo {
   height: 50px;
   margin-top: 20px;
@@ -51,5 +56,12 @@
 
 .success {
   color: white;
-  background: linear-gradient(to right, #006DA8, #01A4FF, #01FFC2);
+  background: linear-gradient(to right, #006da8, #01a4ff, #01ffc2);
+}
+
+.newRoomBtn {
+  color: #4aed88;
+  text-decoration: none;
+  border-bottom: 1px solid #4aed88;
+  transition: all 0.3s ease-in-out;
 }
