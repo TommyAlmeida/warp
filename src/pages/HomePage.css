@@ -1,0 +1,55 @@
+.homePageWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  height: 100vh;
+}
+
+.formWrapper {
+  background: #242a3c;
+  padding: 20px;
+  width: 400px;
+  max-width: 90%;
+}
+
+.homePageLogoWrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.homePageLogo {
+  height: 50px;
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.inputBox {
+  padding: 10px;
+  border-radius: 5px;
+  outline: none;
+  border: none;
+  background: #eee;
+  font-size: 16px;
+  margin-bottom: 22px;
+}
+
+.btn {
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  font-family: 24px;
+  font-weight: bold;
+}
+
+.success {
+  color: white;
+  background: linear-gradient(to right, #006DA8, #01A4FF, #01FFC2);
+}
